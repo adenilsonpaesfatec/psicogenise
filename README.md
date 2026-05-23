@@ -47,15 +47,3 @@ Se o backend exigir autenticação, ajuste o código em `app.js` para enviar o h
 **Testes manuais rápidos**
 - Abra o site e clique nos botões (GIFs) — se `window.__API_BASE_URL` não estiver definido, o comportamento será simulado e aparecerão logs no console.
 - Digite um texto em um campo e pressione Enter — o evento dispara `backend:submit:*` (veja console).
-
-**Boas práticas / próximas melhorias sugeridas**
-- Otimizar imagens (`som.gif`, `fundo.jpg`, `nuvem.png`) para formatos modernos (webp/avif) e múltiplas resoluções.
-- Externalizar strings para i18n se necessário.
-- Considerar mover o cálculo de posicionamento das nuvens para um Web Worker se o `COUNT` for alto.
-- Suporte a `prefers-reduced-motion` já sugerido no CSS — mantenha para acessibilidade.
-
----
-
-Se quiser, eu posso:
-- criar um pequeno servidor de exemplo (mock) para os endpoints descritos, ou
-- adicionar um `CONTRIBUTING.md` e um script de lint/format.
