@@ -8,9 +8,11 @@
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
+/* Reset/box model */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
+  /* Corpo: fundo, centralização e animação suave de drift */
   margin: 0;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -22,12 +24,14 @@ body {
   padding: 2rem;
   position: relative;
   background-image: url('fundo.jpg');
-  background-size: cover;
+  background-size: 110% 110%;
   background-position: center;
   background-repeat: no-repeat;
+  animation: bgDrift 22s ease-in-out infinite alternate;
 }
 
 .card {
+  /* Card fixo na parte inferior da tela; cuidado com teclado virtual em mobile */
   background: rgba(255,255,255,0.92);
   padding: 1.25rem 1.75rem;
   border-radius: calc(var(--radius) * 0.85);
@@ -68,8 +72,11 @@ p { margin: 0; color: var(--muted); }
 #cloud-layer {
   position: absolute;
   inset: 0;
+  /* Layer onde as nuvens são montadas dinamicamente. pointer-events none
+     permite que o card (z-index maior) receba interações enquanto nuvens
+     individuais podem ativar pointer-events:auto para serem clicáveis. */
   pointer-events: none;
-  z-index: 0; /* behind the card (card has z-index:1) */
+  z-index: 1; /* behind the card (card has z-index:1) */
   overflow: hidden;
 }
 
@@ -83,7 +90,8 @@ p { margin: 0; color: var(--muted); }
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  will-change: transform, opacity;
+  /* Will-change usado para otimizar animações, mas evitar abuso */
+  will-change: transform;
   transition: transform 8s linear;
   z-index: 0;
   animation: floatCloud 12s ease-in-out infinite;
@@ -108,6 +116,8 @@ p { margin: 0; color: var(--muted); }
   font-size: 0.9rem;
   color: var(--text);
   line-height: 1;
+  /* text-transform: uppercase dificulta leitura em algumas línguas; remova se preferir */
+  text-transform: uppercase;
 }
 
 .cloud-gif {
@@ -125,6 +135,13 @@ p { margin: 0; color: var(--muted); }
   user-select: none;
 }
 
+.cloud-gif-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 .gif-button:focus {
   outline: 3px solid rgb(0, 0, 255);
   outline-offset: 2px;
@@ -138,4 +155,10 @@ p { margin: 0; color: var(--muted); }
   0% { transform: translateX(0) translateY(0); }
   50% { transform: translateX(10px) translateY(-6px); }
   100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes bgDrift {
+  0% { background-position: 48% 50%; }
+  50% { background-position: 52% 48%; }
+  100% { background-position: 50% 52%; }
 }
